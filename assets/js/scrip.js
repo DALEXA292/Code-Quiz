@@ -1,6 +1,6 @@
 var welcome = document.querySelector("#intro");
 var startBtn = document.querySelector("#startButton");
-var introPage =document.querySelector("#initialPg");
+var introPage =document.querySelector("#initial_Pg");
 
 var questionPage = document.querySelector("#questions");
 var askQuestion = document.querySelector("#questionAsked");
@@ -66,3 +66,47 @@ var ScoreTotal = 0;
 var questiontally = 1;
 
 //Funtion to initiate timer when one presses start button
+
+function countingdown () {
+    
+    var timeInterval = IntervalSet(function () {
+        
+       secondsRemaing--;
+       timeRemaining.textContent = "Time: " + secondsRemaing + "s";
+       
+       if (secondsRemaing <=0) {
+        clearTimeout(timeInterval);
+        finish.textContent = "Time is up!";
+        gameOver();
+       
+    } else if(questiontally >= sourceQuestion.lenght +1) {
+        clearTimeout(timeInterval);
+        gameOver();
+    }
+
+}, 1000);
+
+}
+
+//start quiz button 
+
+function beginQuiz (n) {
+    InitialPg.style.display = "none";
+    questionPage.style.display = "block";
+    questionNumber = 0
+    countingdown();
+    displayQuestion(questionNumber);
+}
+
+//show question
+
+function displayQuestion (n){
+    askQuestion.textContent = questionList[n].question
+    answerBtn1.textContent = sourceQuestion[n].choices[0];
+    answerBtn2.textContent = sourceQuestion[n].choices[1];
+    answerBtn3.textContent = sourceQuestion[n].choices[2];
+    answerBtn4.textContent = sourceQuestion[n].choices[3];
+    questionNumber = n;
+}
+
+//show if answer is correct or wrong
